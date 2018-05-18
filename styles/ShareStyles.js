@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colorAqua, colorBlue } from './Constants';
+import { colorAqua, colorBlue, colorDarkGrey } from './Constants';
 
 const ShareStyles = StyleSheet.create({
   container: {
@@ -9,6 +9,13 @@ const ShareStyles = StyleSheet.create({
   },
   scrollContainer: {
     backgroundColor: colorAqua,
+  },
+  usernameText: {
+    fontFamily: 'titillium-web',
+    fontSize: 20,
+    color: colorBlue,
+    textAlign: 'center',
+    padding: 10,
   }
 });
 

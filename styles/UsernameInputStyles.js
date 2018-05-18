@@ -8,6 +8,8 @@ const UsernameInputStyles = StyleSheet.create({
     backgroundColor: colorBlue,
   },
   input: {
+    fontFamily: 'titillium-web',
+    color: colorBlue,
     margin: 20,
     borderColor: colorLightGrey,
     borderBottomWidth: 1,
@@ -16,7 +18,13 @@ const UsernameInputStyles = StyleSheet.create({
     borderTopWidth: 1,
     borderRadius: 2,
     padding: 10,
-    color: colorDarkGrey,
+  },
+  response: {
+    fontFamily: 'titillium-web',
+    fontSize: 16,
+    color: colorBlue,
+    textAlign: 'center',
+    padding: 5,
   }
 });
 

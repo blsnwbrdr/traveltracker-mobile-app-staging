@@ -20,7 +20,7 @@ export default class UsernameInput extends Component {
           onChangeText={(usernameInputText) => this.props.usernameInputChange(usernameInputText)}
           onSubmitEditing={() => this.props.onPressSubmitUsername()}
         />
-        <Text>{this.props.usernameResponse}</Text>
+        <Text style={UsernameInputStyles.response}>{this.props.usernameResponse}</Text>
       </View>
     );
   }

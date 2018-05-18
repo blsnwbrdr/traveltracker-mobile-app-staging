@@ -23,14 +23,11 @@ export default class ShareScreen extends Component {
   componentDidMount = () => {
     // AsyncStorage.clear()
     AsyncStorage.getItem('Username', (err, result) => {
-      console.log(result)
       if (result != null) {
-        console.log('not empty')
         this.setState({
           username: result,
         });
       } else {
-        console.log('empty')
         this.setState({
           usernameInputDisplay: true,
         });
@@ -47,29 +44,30 @@ export default class ShareScreen extends Component {
 
   // SUBMIT USERNAME
   onPressSubmitUsername() {
-    console.log(this.state.usernameInputText)
-    const username = JSON.stringify({name:this.state.usernameInputText})
-    fetch('http://localhost:5000/traveltracker/add/username', {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: username,
-    })
-      .then((res) => {
-        this.setState({
-          usernameResponse: res._bodyText
-        });
-        if (res._bodyText === 'Username added') {
-          AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
-          });
-          this.setState({
-            usernameInputDisplay: false,
-            username: this.state.usernameInputText,
-          });
-        }
+    if (this.state.usernameInputText !== '') {
+      const username = JSON.stringify({name:this.state.usernameInputText})
+      fetch('http://localhost:5000/traveltracker/add/username', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: username,
       })
+        .then((res) => {
+          this.setState({
+            usernameResponse: res._bodyText
+          });
+          if (res._bodyText === 'Username added') {
+            AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
+            });
+            this.setState({
+              usernameInputDisplay: false,
+              username: this.state.usernameInputText,
+            });
+          }
+        })
+    }
   }
 
   render() {
@@ -86,7 +84,7 @@ export default class ShareScreen extends Component {
                 usernameResponse={this.state.usernameResponse}
                />
             ) : (
-              <Text>{this.state.username}</Text>
+              <Text style={ShareStyles.usernameText}>{this.state.username}</Text>
             )
           }
         </ScrollView>
