@@ -13,9 +13,29 @@ export default class ShareScreen extends Component {
     this.usernameInputChange = this.usernameInputChange.bind(this);
     this.onPressSubmitUsername = this.onPressSubmitUsername.bind(this);
     this.state = {
+      usernameInputDisplay: false,
       usernameInputText: '',
-      response: '',
+      usernameResponse: '',
+      username: '',
     }
+  }
+
+  componentDidMount = () => {
+    // AsyncStorage.clear()
+    AsyncStorage.getItem('Username', (err, result) => {
+      console.log(result)
+      if (result != null) {
+        console.log('not empty')
+        this.setState({
+          username: result,
+        });
+      } else {
+        console.log('empty')
+        this.setState({
+          usernameInputDisplay: true,
+        });
+      }
+    });
   }
 
   // USERNAME INPUT CHANGE FUNCTION
@@ -27,7 +47,8 @@ export default class ShareScreen extends Component {
 
   // SUBMIT USERNAME
   onPressSubmitUsername() {
-    const username = JSON.stringify({name:this.state.inputText})
+    console.log(this.state.usernameInputText)
+    const username = JSON.stringify({name:this.state.usernameInputText})
     fetch('http://localhost:5000/traveltracker/add/username', {
       method: 'POST',
       headers: {
@@ -37,23 +58,37 @@ export default class ShareScreen extends Component {
       body: username,
     })
       .then((res) => {
-        console.log(res._bodyText)
         this.setState({
-          response: res._bodyText
-        })
+          usernameResponse: res._bodyText
+        });
+        if (res._bodyText === 'Username added') {
+          AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
+          });
+          this.setState({
+            usernameInputDisplay: false,
+            username: this.state.usernameInputText,
+          });
+        }
       })
   }
 
   render() {
+    const usernameInputDisplay = this.state.usernameInputDisplay;
     return(
       <SafeAreaView style={ShareStyles.container}>
         <StatusBar barStyle="light-content" />
         <ScrollView style={ShareStyles.scrollContainer}>
-          <UsernameInput
-            usernameInputChange={this.usernameInputChange}
-            onPressSubmitUsername={this.onPressSubmitUsername}
-           />
-          <Text>{this.state.response}</Text>
+          {
+            usernameInputDisplay ? (
+              <UsernameInput
+                usernameInputChange={this.usernameInputChange}
+                onPressSubmitUsername={this.onPressSubmitUsername}
+                usernameResponse={this.state.usernameResponse}
+               />
+            ) : (
+              <Text>{this.state.username}</Text>
+            )
+          }
         </ScrollView>
       </SafeAreaView>
     );
