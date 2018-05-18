@@ -1,29 +1,33 @@
 import React, { Component } from 'react';
 import { AsyncStorage, SafeAreaView, StatusBar, TextInput, ScrollView, TouchableOpacity, View, Text } from 'react-native';
 
+// COMPONENTS
+import UsernameInput from './../components/UsernameInput';
+
 // STYLES
 import ShareStyles from './../styles/ShareStyles';
 
 export default class ShareScreen extends Component {
   constructor(props) {
     super(props);
+    this.usernameInputChange = this.usernameInputChange.bind(this);
+    this.onPressSubmitUsername = this.onPressSubmitUsername.bind(this);
     this.state = {
-      usernameInput: '',
+      usernameInputText: '',
       response: '',
     }
   }
 
-  // USERNAME INPUT FUNCTION
-  usernameInput(usernameInput) {
-    // console.log(usernameInput);
+  // USERNAME INPUT CHANGE FUNCTION
+  usernameInputChange(input) {
     this.setState({
-      usernameInput: usernameInput
+      usernameInputText: input
     });
   }
 
   // SUBMIT USERNAME
   onPressSubmitUsername() {
-    const username = JSON.stringify({name:this.state.usernameInput})
+    const username = JSON.stringify({name:this.state.inputText})
     fetch('http://localhost:5000/traveltracker/add/username', {
       method: 'POST',
       headers: {
@@ -45,16 +49,10 @@ export default class ShareScreen extends Component {
       <SafeAreaView style={ShareStyles.container}>
         <StatusBar barStyle="light-content" />
         <ScrollView style={ShareStyles.scrollContainer}>
-          <TextInput
-            autoCorrect={false}
-            autoCapitalize='none'
-            placeholder='Create Username'
-            clearButtonMode='always'
-            maxLength={12}
-            returnKeyType='send'
-            onChangeText={(usernameInput) => this.usernameInput(usernameInput)}
-            onSubmitEditing={() => this.onPressSubmitUsername()}
-          />
+          <UsernameInput
+            usernameInputChange={this.usernameInputChange}
+            onPressSubmitUsername={this.onPressSubmitUsername}
+           />
           <Text>{this.state.response}</Text>
         </ScrollView>
       </SafeAreaView>
