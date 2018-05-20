@@ -45,7 +45,7 @@ export default class ShareScreen extends Component {
   // SUBMIT USERNAME
   onPressSubmitUsername() {
     if (this.state.usernameInputText !== '') {
-      const username = JSON.stringify({name:this.state.usernameInputText})
+      const username = JSON.stringify({username:this.state.usernameInputText})
       fetch('http://localhost:5000/traveltracker/add/username', {
         method: 'POST',
         headers: {
