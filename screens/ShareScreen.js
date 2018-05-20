@@ -70,6 +70,13 @@ export default class ShareScreen extends Component {
     }
   }
 
+  onPressShare() {
+    AsyncStorage.getItem('Visited', (err, result) => {
+      const visitedData = JSON.parse(result);
+      console.log(visitedData.checked)
+    });
+  }
+
   render() {
     const usernameInputDisplay = this.state.usernameInputDisplay;
     return(
@@ -87,6 +94,11 @@ export default class ShareScreen extends Component {
               <Text style={ShareStyles.usernameText}>{this.state.username}</Text>
             )
           }
+          <TouchableOpacity onPress={ () => this.onPressShare() }>
+            <View>
+              <Text>share</Text>
+            </View>
+          </TouchableOpacity>
         </ScrollView>
       </SafeAreaView>
     );
