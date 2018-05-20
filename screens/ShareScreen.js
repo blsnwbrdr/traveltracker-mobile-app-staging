@@ -71,9 +71,23 @@ export default class ShareScreen extends Component {
   }
 
   onPressShare() {
+    const username = JSON.stringify({username:this.state.username})
     AsyncStorage.getItem('Visited', (err, result) => {
-      const visitedData = JSON.parse(result);
-      console.log(visitedData.checked)
+      console.log(result);
+      console.log(username);
+      const visitedData = `[${username},${result}]`;
+      console.log(visitedData);
+      fetch('http://localhost:5000/traveltracker/update', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: visitedData,
+      })
+        // .then(res) => {
+        //
+        // }
     });
   }
 
