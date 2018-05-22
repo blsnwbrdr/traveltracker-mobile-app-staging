@@ -16,7 +16,7 @@ const UsernameInputStyles = StyleSheet.create({
     borderRightWidth: 1,
     borderLeftWidth: 1,
     borderTopWidth: 1,
-    borderRadius: 2,
+    borderRadius: 3,
     padding: 10,
   },
   response: {

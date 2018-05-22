@@ -9,13 +9,6 @@ const ShareStyles = StyleSheet.create({
   },
   scrollContainer: {
     backgroundColor: colorAqua,
-  },
-  usernameText: {
-    fontFamily: 'titillium-web',
-    fontSize: 20,
-    color: colorBlue,
-    textAlign: 'center',
-    padding: 10,
   }
 });
 

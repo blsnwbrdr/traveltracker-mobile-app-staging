@@ -3,6 +3,7 @@ import { AsyncStorage, SafeAreaView, StatusBar, TextInput, ScrollView, Touchable
 
 // COMPONENTS
 import UsernameInput from './../components/UsernameInput';
+import UsernameAndShare from './../components/UsernameAndShare';
 
 // STYLES
 import ShareStyles from './../styles/ShareStyles';
@@ -12,6 +13,7 @@ export default class ShareScreen extends Component {
     super(props);
     this.usernameInputChange = this.usernameInputChange.bind(this);
     this.onPressSubmitUsername = this.onPressSubmitUsername.bind(this);
+    this.onPressShare = this.onPressShare.bind(this);
     this.state = {
       usernameInputDisplay: false,
       usernameInputText: '',
@@ -73,10 +75,7 @@ export default class ShareScreen extends Component {
   onPressShare() {
     const username = JSON.stringify({username:this.state.username})
     AsyncStorage.getItem('Visited', (err, result) => {
-      console.log(result);
-      console.log(username);
       const visitedData = `[${username},${result}]`;
-      console.log(visitedData);
       fetch('http://localhost:5000/traveltracker/update', {
         method: 'POST',
         headers: {
@@ -105,14 +104,13 @@ export default class ShareScreen extends Component {
                 usernameResponse={this.state.usernameResponse}
                />
             ) : (
-              <Text style={ShareStyles.usernameText}>{this.state.username}</Text>
+              <UsernameAndShare
+                username={this.state.username}
+                onPressShare={this.onPressShare}
+              />
             )
           }
-          <TouchableOpacity onPress={ () => this.onPressShare() }>
-            <View>
-              <Text>share</Text>
-            </View>
-          </TouchableOpacity>
+
         </ScrollView>
       </SafeAreaView>
     );
