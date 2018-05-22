@@ -4,6 +4,7 @@ import { AsyncStorage, SafeAreaView, StatusBar, TextInput, ScrollView, Touchable
 // COMPONENTS
 import UsernameInput from './../components/UsernameInput';
 import UsernameAndShare from './../components/UsernameAndShare';
+import Search from './../components/Search';
 
 // STYLES
 import ShareStyles from './../styles/ShareStyles';
@@ -14,12 +15,15 @@ export default class ShareScreen extends Component {
     this.usernameInputChange = this.usernameInputChange.bind(this);
     this.onPressSubmitUsername = this.onPressSubmitUsername.bind(this);
     this.onPressShare = this.onPressShare.bind(this);
+    this.searchInputChange = this.searchInputChange.bind(this);
+    this.onPressSubmitSearch = this.onPressSubmitSearch.bind(this);
     this.state = {
       usernameInputDisplay: false,
       usernameInputText: '',
       usernameResponse: '',
       username: '',
       shareResponse: '',
+      searchInputText: '',
     }
   }
 
@@ -73,6 +77,7 @@ export default class ShareScreen extends Component {
     }
   }
 
+  // SHARE LIST
   onPressShare() {
     const username = JSON.stringify({username:this.state.username})
     AsyncStorage.getItem('Visited', (err, result) => {
@@ -98,6 +103,20 @@ export default class ShareScreen extends Component {
     });
   }
 
+  // SEARCH INPUT CHANGE FUNCTION
+  searchInputChange(input) {
+    this.setState({
+      searchInputText: input
+    });
+  }
+
+  // SUBMIT SEARCH
+  onPressSubmitSearch() {
+    if (this.state.searchInputText !== '') {
+      console.log(this.state.searchInputText);
+    }
+  }
+
   render() {
     const usernameInputDisplay = this.state.usernameInputDisplay;
     return(
@@ -119,7 +138,10 @@ export default class ShareScreen extends Component {
               />
             )
           }
-
+          <Search
+            searchInputChange={this.searchInputChange}
+            onPressSubmitSearch={this.onPressSubmitSearch}
+          />
         </ScrollView>
       </SafeAreaView>
     );

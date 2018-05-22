@@ -1,7 +1,14 @@
 import { StyleSheet } from 'react-native';
-import { colorAqua, colorBlue, colorLightGrey, colorDarkGrey } from './Constants';
+import { colorAqua, colorBlue, colorLightGrey } from './Constants';
 
-const UsernameInputStyles = StyleSheet.create({
+const SearchStyles = StyleSheet.create({
+  header: {
+    fontFamily: 'titillium-web',
+    fontSize: 16,
+    color: colorBlue,
+    textAlign: 'center',
+    padding: 5,
+  },
   input: {
     fontFamily: 'titillium-web',
     color: colorBlue,
@@ -14,13 +21,6 @@ const UsernameInputStyles = StyleSheet.create({
     borderRadius: 3,
     padding: 10,
   },
-  response: {
-    fontFamily: 'titillium-web',
-    fontSize: 16,
-    color: colorBlue,
-    textAlign: 'center',
-    padding: 5,
-  }
 });
 
-export default UsernameInputStyles;
+export default SearchStyles;
