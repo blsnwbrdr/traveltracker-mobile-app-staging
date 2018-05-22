@@ -19,6 +19,7 @@ export default class ShareScreen extends Component {
       usernameInputText: '',
       usernameResponse: '',
       username: '',
+      shareResponse: '',
     }
   }
 
@@ -84,9 +85,16 @@ export default class ShareScreen extends Component {
         },
         body: visitedData,
       })
-        // .then(res) => {
-        //
-        // }
+        .then((res) => {
+          this.setState({
+            shareResponse: res._bodyText
+          });
+          setTimeout( () => {
+            this.setState({
+              shareResponse: ''
+            })
+          }, 2000);
+        })
     });
   }
 
@@ -107,6 +115,7 @@ export default class ShareScreen extends Component {
               <UsernameAndShare
                 username={this.state.username}
                 onPressShare={this.onPressShare}
+                shareResponse={this.state.shareResponse}
               />
             )
           }

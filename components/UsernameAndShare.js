@@ -19,6 +19,9 @@ export default class UsernameAndShare extends Component {
             </View>
           </TouchableOpacity>
         </View>
+        <View style={UsernameAndShareStyles.responseContainer}>
+          <Text style={UsernameAndShareStyles.responseText}>{this.props.shareResponse}</Text>
+        </View>
       </View>
     )
   }

@@ -32,6 +32,15 @@ const UsernameAndShareStyles = StyleSheet.create({
     color: colorLightGrey,
     paddingTop: 5,
     paddingLeft: 10,
+  },
+  responseContainer: {
+  },
+  responseText: {
+    fontFamily: 'titillium-web',
+    fontSize: 16,
+    color: colorDarkGrey,
+    padding: 10,
+    textAlign: 'center',
   }
 });
 
