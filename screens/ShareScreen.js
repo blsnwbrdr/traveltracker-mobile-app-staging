@@ -24,6 +24,7 @@ export default class ShareScreen extends Component {
       username: '',
       shareResponse: '',
       searchInputText: '',
+      searchResultList: [],
     }
   }
 
@@ -114,6 +115,21 @@ export default class ShareScreen extends Component {
   onPressSubmitSearch() {
     if (this.state.searchInputText !== '') {
       console.log(this.state.searchInputText);
+      this.setState({
+        searchResultList: ''
+      });
+      fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
+        .then(res => res.json())
+        .then(
+          (result) => {
+            if (result.length > 0) {
+              console.log(result[0].checked);
+              this.setState({
+                searchResultList: result[0].checked
+              });
+            }
+          }
+        )
     }
   }
 
@@ -142,6 +158,9 @@ export default class ShareScreen extends Component {
             searchInputChange={this.searchInputChange}
             onPressSubmitSearch={this.onPressSubmitSearch}
           />
+          <View>
+            <Text>{this.state.searchResultList}</Text>
+          </View>
         </ScrollView>
       </SafeAreaView>
     );
