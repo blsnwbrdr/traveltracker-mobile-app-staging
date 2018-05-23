@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colorAqua, colorBlue, colorLightGrey, colorDarkGrey } from './Constants';
+import { colorBlue, colorLightGrey } from './Constants';
 
 const UsernameInputStyles = StyleSheet.create({
   input: {

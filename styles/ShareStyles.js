@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colorAqua, colorBlue, colorDarkGrey } from './Constants';
+import { colorAqua, colorBlue } from './Constants';
 
 const ShareStyles = StyleSheet.create({
   container: {

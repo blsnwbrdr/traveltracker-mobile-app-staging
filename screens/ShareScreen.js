@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, StatusBar, TextInput, ScrollView, TouchableOpacity, View, Text } from 'react-native';
+import { AsyncStorage, SafeAreaView, StatusBar, ScrollView } from 'react-native';
 
 // COMPONENTS
 import UsernameInput from './../components/UsernameInput';
@@ -114,7 +114,7 @@ export default class ShareScreen extends Component {
   // SUBMIT SEARCH
   onPressSubmitSearch() {
     if (this.state.searchInputText !== '') {
-      console.log(this.state.searchInputText);
+      // console.log(this.state.searchInputText);
       this.setState({
         searchResultList: ''
       });
@@ -123,9 +123,13 @@ export default class ShareScreen extends Component {
         .then(
           (result) => {
             if (result.length > 0) {
-              console.log(result[0].checked);
+              // console.log(result[0].checked);
               this.setState({
                 searchResultList: result[0].checked
+              });
+            } else {
+              this.setState({
+                searchResultList: ['Username does not exist']
               });
             }
           }
@@ -157,10 +161,8 @@ export default class ShareScreen extends Component {
           <Search
             searchInputChange={this.searchInputChange}
             onPressSubmitSearch={this.onPressSubmitSearch}
+            searchResultList={this.state.searchResultList}
           />
-          <View>
-            <Text>{this.state.searchResultList}</Text>
-          </View>
         </ScrollView>
       </SafeAreaView>
     );

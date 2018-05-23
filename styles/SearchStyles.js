@@ -21,6 +21,13 @@ const SearchStyles = StyleSheet.create({
     borderRadius: 3,
     padding: 10,
   },
+  list: {
+    fontFamily: 'titillium-web',
+    color: colorLightGrey,
+    fontSize: 18,
+    paddingBottom: 5,
+    textAlign: 'center',
+  }
 });
 
 export default SearchStyles;

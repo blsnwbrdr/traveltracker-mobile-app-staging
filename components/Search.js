@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { TextInput, View, Text } from 'react-native';
+import { TextInput, FlatList, View, Text } from 'react-native';
 
 // STYLES
 import SearchStyles from './../styles/SearchStyles';
@@ -20,6 +20,16 @@ export default class Search extends Component {
           returnKeyType='go'
           onChangeText={(searchInputText) => this.props.searchInputChange(searchInputText)}
           onSubmitEditing={() => this.props.onPressSubmitSearch()}
+        />
+        <FlatList
+          data = {this.props.searchResultList}
+          extraData = {this.state}
+          keyExtractor = {(x, i) => i}
+          renderItem = { ({item}) =>
+            <Text style={SearchStyles.list}>
+              {item}
+            </Text>
+          }
         />
       </View>
     )
