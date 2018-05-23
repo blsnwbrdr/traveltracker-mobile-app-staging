@@ -21,6 +21,13 @@ export default class Search extends Component {
           onChangeText={(searchInputText) => this.props.searchInputChange(searchInputText)}
           onSubmitEditing={() => this.props.onPressSubmitSearch()}
         />
+        {
+          this.props.searchResultsHeader ? (
+            <Text style={SearchStyles.header}>{this.props.searchResultsUsername} has visited {this.props.searchResultListCount} countries/territories.</Text>
+          ) : (
+            <Text></Text>
+          )
+        }
         <FlatList
           data = {this.props.searchResultList}
           extraData = {this.state}

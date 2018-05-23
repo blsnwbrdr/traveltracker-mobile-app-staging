@@ -24,7 +24,10 @@ export default class ShareScreen extends Component {
       username: '',
       shareResponse: '',
       searchInputText: '',
+      searchResultsHeader: false,
+      searchResultsUsername: '',
       searchResultList: [],
+      searchResultListCount: '',
     }
   }
 
@@ -114,7 +117,6 @@ export default class ShareScreen extends Component {
   // SUBMIT SEARCH
   onPressSubmitSearch() {
     if (this.state.searchInputText !== '') {
-      // console.log(this.state.searchInputText);
       this.setState({
         searchResultList: ''
       });
@@ -123,14 +125,24 @@ export default class ShareScreen extends Component {
         .then(
           (result) => {
             if (result.length > 0) {
-              // console.log(result[0].checked);
               this.setState({
-                searchResultList: result[0].checked
+                searchResultsHeader: true,
+                searchResultsUsername: result[0].username,
+                searchResultList: result[0].checked,
+                searchResultListCount: result[0].checked.length,
               });
             } else {
               this.setState({
-                searchResultList: ['Username does not exist']
+                searchResultsHeader: false,
+                searchResultsUsername: '',
+                searchResultList: ['Username does not exist'],
+                searchResultListCount: '',
               });
+              setTimeout( () => {
+                this.setState({
+                  searchResultList: '',
+                })
+              }, 2000);
             }
           }
         )
@@ -161,7 +173,10 @@ export default class ShareScreen extends Component {
           <Search
             searchInputChange={this.searchInputChange}
             onPressSubmitSearch={this.onPressSubmitSearch}
+            searchResultsHeader={this.state.searchResultsHeader}
+            searchResultsUsername={this.state.searchResultsUsername}
             searchResultList={this.state.searchResultList}
+            searchResultListCount={this.state.searchResultListCount}
           />
         </ScrollView>
       </SafeAreaView>
