@@ -69,6 +69,11 @@ export default class ShareScreen extends Component {
           this.setState({
             usernameResponse: res._bodyText
           });
+          setTimeout( () => {
+            this.setState({
+              usernameResponse: ''
+            })
+          }, 2000);
           if (res._bodyText === 'Username added') {
             AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
             });
@@ -128,7 +133,7 @@ export default class ShareScreen extends Component {
               this.setState({
                 searchResultsHeader: true,
                 searchResultsUsername: result[0].username,
-                searchResultList: result[0].checked,
+                searchResultList: result[0].checked.sort(),
                 searchResultListCount: result[0].checked.length,
               });
             } else {
