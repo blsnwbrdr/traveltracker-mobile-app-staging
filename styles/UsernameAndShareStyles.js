@@ -7,19 +7,19 @@ const UsernameAndShareStyles = StyleSheet.create({
     fontSize: 20,
     color: colorBlue,
     textAlign: 'center',
-    padding: 10,
+    padding: 20,
   },
   shareButtonContainer: {
     alignItems: 'center',
   },
   shareButton: {
     borderWidth: 1,
-    borderColor: colorLightGrey,
+    borderColor: colorBlue,
     borderRadius: 3,
     paddingTop: 5,
+    paddingRight: 10,
     paddingBottom: 5,
     paddingLeft: 10,
-    paddingRight: 10,
     flexDirection: 'row',
   },
   shareText: {
@@ -29,17 +29,17 @@ const UsernameAndShareStyles = StyleSheet.create({
     textAlign: 'center',
   },
   shareIcon: {
-    color: colorLightGrey,
+    color: colorBlue,
     paddingTop: 5,
     paddingLeft: 10,
   },
   responseContainer: {
   },
   responseText: {
+    height: 20,
     fontFamily: 'titillium-web',
-    fontSize: 16,
-    color: colorDarkGrey,
-    padding: 10,
+    fontSize: 14,
+    color: colorLightGrey,
     textAlign: 'center',
   }
 });
