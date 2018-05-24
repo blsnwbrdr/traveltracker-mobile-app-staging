@@ -8,7 +8,7 @@ export default class Search extends Component {
 
   render() {
     return (
-      <View>
+      <View style={SearchStyles.container}>
         <Text style={SearchStyles.header}>Search Users</Text>
         <TextInput
           style={SearchStyles.input}
@@ -23,7 +23,10 @@ export default class Search extends Component {
         />
         {
           this.props.searchResultsHeader ? (
-            <Text style={SearchStyles.header}>{this.props.searchResultsUsername} has visited {this.props.searchResultListCount} countries/territories.</Text>
+            <View style={SearchStyles.listHeaderContainer}>
+              <Text style={SearchStyles.listHeader}>{this.props.searchResultsUsername} has visited</Text>
+              <Text style={SearchStyles.listHeader}>{this.props.searchResultListCount} countries/territories.</Text>
+            </View>
           ) : (
             <Text></Text>
           )

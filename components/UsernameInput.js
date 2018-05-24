@@ -8,7 +8,9 @@ export default class UsernameInput extends Component {
 
   render() {
     return (
-      <View>
+      <View style={UsernameInputStyles.container}>
+        <Text style={UsernameInputStyles.header}>Create a username</Text>
+        <Text style={UsernameInputStyles.header}>to share your list</Text>
         <TextInput
           style={UsernameInputStyles.input}
           autoCorrect={false}
