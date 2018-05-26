@@ -57,7 +57,7 @@ export default class ShareScreen extends Component {
   onPressSubmitUsername() {
     if (this.state.usernameInputText !== '') {
       const username = JSON.stringify({username:this.state.usernameInputText})
-      fetch('http://localhost:5000/traveltracker/add/username', {
+      fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -91,7 +91,7 @@ export default class ShareScreen extends Component {
     const username = JSON.stringify({username:this.state.username})
     AsyncStorage.getItem('Visited', (err, result) => {
       const visitedData = `[${username},${result}]`;
-      fetch('http://localhost:5000/traveltracker/update', {
+      fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -125,7 +125,7 @@ export default class ShareScreen extends Component {
       this.setState({
         searchResultList: ''
       });
-      fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
+      fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)
         .then(res => res.json())
         .then(
           (result) => {
