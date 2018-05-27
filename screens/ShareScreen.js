@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, StatusBar, ScrollView } from 'react-native';
+import { NetInfo, AsyncStorage, SafeAreaView, StatusBar, ScrollView } from 'react-native';
 
 // COMPONENTS
 import UsernameInput from './../components/UsernameInput';
@@ -18,6 +18,7 @@ export default class ShareScreen extends Component {
     this.searchInputChange = this.searchInputChange.bind(this);
     this.onPressSubmitSearch = this.onPressSubmitSearch.bind(this);
     this.state = {
+      isConnected: false,
       usernameInputDisplay: false,
       usernameInputText: '',
       usernameResponse: '',
@@ -44,6 +45,29 @@ export default class ShareScreen extends Component {
         });
       }
     });
+    this.checkConnection();
+  }
+
+  // CHECK CONNECTION TO INTERNET
+  checkConnection = () => {
+    NetInfo.isConnected.fetch().then(isConnected => {
+    });
+    connectivityChange = (isConnected) => {
+      if (isConnected === true) {
+        console.log('connected');
+        this.setState({
+          isConnected: true,
+        });
+        fetch('https://brandonscode.herokuapp.com')
+      } else {
+        console.log('not connected');
+        this.setState({
+          isConnected: false,
+        });
+      }
+      NetInfo.isConnected.removeEventListener('connectionChange', connectivityChange);
+    }
+    NetInfo.isConnected.addEventListener('connectionChange', connectivityChange);
   }
 
   // USERNAME INPUT CHANGE FUNCTION
@@ -141,7 +165,7 @@ export default class ShareScreen extends Component {
         searchResultList: '',
         searchResultListCount: '',
       });
-      fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)  
+      fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)
       // fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
         .then(res => res.json())
         .then(
