@@ -55,15 +55,9 @@ export default class ShareScreen extends Component {
     connectivityChange = (isConnected) => {
       if (isConnected === true) {
         console.log('connected');
-        this.setState({
-          isConnected: true,
-        });
         fetch('https://brandonscode.herokuapp.com')
       } else {
         console.log('not connected');
-        this.setState({
-          isConnected: false,
-        });
       }
       NetInfo.isConnected.removeEventListener('connectionChange', connectivityChange);
     }
