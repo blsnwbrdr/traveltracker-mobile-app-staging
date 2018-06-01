@@ -50,18 +50,15 @@ export default class ShareScreen extends Component {
 
   // CHECK CONNECTION TO INTERNET
   checkConnection = () => {
-    NetInfo.isConnected.fetch().then(isConnected => {
-    });
-    connectivityChange = (isConnected) => {
-      if (isConnected === true) {
-        // console.log('connected');
-        fetch('https://brandonscode.herokuapp.com')
-      } else {
-        // console.log('not connected');
-      }
-      NetInfo.isConnected.removeEventListener('connectionChange', connectivityChange);
-    }
-    NetInfo.isConnected.addEventListener('connectionChange', connectivityChange);
+    NetInfo.isConnected.fetch()
+      .then( () => {
+        NetInfo.isConnected.addEventListener('connectionChange', (isConnected) => {
+          console.log(isConnected)
+          this.setState({
+            isConnected: isConnected,
+          });
+        });
+      });
   }
 
   // USERNAME INPUT CHANGE FUNCTION
@@ -75,8 +72,8 @@ export default class ShareScreen extends Component {
   onPressSubmitUsername() {
     if (this.state.usernameInputText !== '') {
       const username = JSON.stringify({username:this.state.usernameInputText})
-      fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
-      // fetch('http://localhost:5000/traveltracker/add/username', {
+      // fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
+      fetch('http://localhost:5000/traveltracker/add/username', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -111,8 +108,8 @@ export default class ShareScreen extends Component {
     AsyncStorage.getItem('Visited', (err, result) => {
       if (result !== null) {
         const visitedData = `[${username},${result}]`;
-        fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
-        // fetch('http://localhost:5000/traveltracker/update', {
+        // fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
+        fetch('http://localhost:5000/traveltracker/update', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -152,42 +149,46 @@ export default class ShareScreen extends Component {
 
   // SUBMIT SEARCH
   onPressSubmitSearch() {
-    if (this.state.searchInputText !== '') {
-      this.setState({
-        searchResultsHeader: false,
-        searchResultsUsername: '',
-        searchResultList: '',
-        searchResultListCount: '',
-      });
-      fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)
-      // fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
-        .then(res => res.json())
-        .then(
-          (result) => {
-            if (result.length > 0 && result[0].checked !== undefined) {
-              this.setState({
-                searchResultsHeader: true,
-                searchResultsUsername: result[0].username,
-                searchResultList: result[0].checked.sort(),
-                searchResultListCount: result[0].checked.length,
-              });
-            } else if (result.length > 0 && result[0].checked === undefined) {
-              this.setState({
-                searchResultList: ['User has not shared their list'],
-              });
-            } else {
-              this.setState({
-                searchResultsHeader: false,
-                searchResultList: ['Username does not exist'],
-              });
-              setTimeout( () => {
+    if (this.state.isConnected === true) {
+      if (this.state.searchInputText !== '') {
+        this.setState({
+          searchResultsHeader: false,
+          searchResultsUsername: '',
+          searchResultList: '',
+          searchResultListCount: '',
+        });
+        // fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)
+        fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
+          .then(res => res.json())
+          .then(
+            (result) => {
+              if (result.length > 0 && result[0].checked !== undefined) {
                 this.setState({
-                  searchResultList: '',
-                })
-              }, 2000);
+                  searchResultsHeader: true,
+                  searchResultsUsername: result[0].username,
+                  searchResultList: result[0].checked.sort(),
+                  searchResultListCount: result[0].checked.length,
+                });
+              } else if (result.length > 0 && result[0].checked === undefined) {
+                this.setState({
+                  searchResultList: ['User has not shared their list'],
+                });
+              } else {
+                this.setState({
+                  searchResultsHeader: false,
+                  searchResultList: ['Username does not exist'],
+                });
+                setTimeout( () => {
+                  this.setState({
+                    searchResultList: '',
+                  })
+                }, 2000);
+              }
             }
-          }
-        )
+          )
+      }
+    } else {
+      console.log('no internet connection');
     }
   }
 
