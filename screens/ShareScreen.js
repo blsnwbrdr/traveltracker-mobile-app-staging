@@ -188,7 +188,7 @@ export default class ShareScreen extends Component {
           )
       }
     } else {
-      // console.log('no internet connection');
+      console.log('no internet connection');
     }
   }
 
