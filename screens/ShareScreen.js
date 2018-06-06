@@ -188,7 +188,15 @@ export default class ShareScreen extends Component {
           )
       }
     } else {
-      console.log('no internet connection');
+      this.setState({
+        searchResultsHeader: false,
+        searchResultList: ['No internet connection'],
+      });
+      setTimeout( () => {
+        this.setState({
+          searchResultList: '',
+        })
+      }, 2000);
     }
   }
 
