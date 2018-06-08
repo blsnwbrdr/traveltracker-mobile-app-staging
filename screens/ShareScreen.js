@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NetInfo, AsyncStorage, SafeAreaView, StatusBar, ScrollView } from 'react-native';
+import { AsyncStorage, SafeAreaView, StatusBar, ScrollView } from 'react-native';
 
 // COMPONENTS
 import UsernameInput from './../components/UsernameInput';
@@ -18,7 +18,6 @@ export default class ShareScreen extends Component {
     this.searchInputChange = this.searchInputChange.bind(this);
     this.onPressSubmitSearch = this.onPressSubmitSearch.bind(this);
     this.state = {
-      isConnected: false,
       usernameInputDisplay: false,
       usernameInputText: '',
       usernameResponse: '',
@@ -45,20 +44,6 @@ export default class ShareScreen extends Component {
         });
       }
     });
-    this.checkConnection();
-  }
-
-  // CHECK CONNECTION TO INTERNET
-  checkConnection = () => {
-    NetInfo.isConnected.fetch()
-      .then( () => {
-        NetInfo.isConnected.addEventListener('connectionChange', (isConnected) => {
-          console.log(isConnected)
-          this.setState({
-            isConnected: isConnected,
-          });
-        });
-      });
   }
 
   // USERNAME INPUT CHANGE FUNCTION
