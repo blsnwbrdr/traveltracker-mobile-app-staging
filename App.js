@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { NetInfo } from 'react-native';
 import { AppLoading, Font } from 'expo';
 import MainNavigation from './navigation/MainNavigation';
 
@@ -10,23 +9,6 @@ export default class App extends Component {
       isConnected: false,
       isLoadingComplete: false,
     }
-  }
-
-  componentDidMount = () => {
-    this.checkConnection();
-  }
-
-  // CHECK CONNECTION TO INTERNET
-  checkConnection = () => {
-    NetInfo.isConnected.fetch()
-      .then( () => {
-        NetInfo.isConnected.addEventListener('connectionChange', (isConnected) => {
-          console.log(isConnected)
-          this.setState({
-            isConnected: isConnected,
-          });
-        });
-      });
   }
 
   render() {

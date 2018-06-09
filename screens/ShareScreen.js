@@ -134,7 +134,9 @@ export default class ShareScreen extends Component {
 
   // SUBMIT SEARCH
   onPressSubmitSearch() {
-    if (this.state.isConnected === true) {
+    const { params } = this.props.navigation.state;
+    console.log(params.connection);
+    if (params.connection === true) {
       if (this.state.searchInputText !== '') {
         this.setState({
           searchResultsHeader: false,
