@@ -55,74 +55,100 @@ export default class ShareScreen extends Component {
 
   // SUBMIT USERNAME
   onPressSubmitUsername() {
-    if (this.state.usernameInputText !== '') {
-      const username = JSON.stringify({username:this.state.usernameInputText})
-      // fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
-      fetch('http://localhost:5000/traveltracker/add/username', {
-        method: 'POST',
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: username,
-      })
-        .then((res) => {
-          this.setState({
-            usernameResponse: res._bodyText
-          });
-          setTimeout( () => {
-            this.setState({
-              usernameResponse: ''
-            })
-          }, 2000);
-          if (res._bodyText === 'Username added') {
-            AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
-            });
-            this.setState({
-              usernameInputDisplay: false,
-              username: this.state.usernameInputText,
-            });
-          }
-        })
-    }
-  }
-
-  // SHARE LIST
-  onPressShare() {
-    const username = JSON.stringify({username:this.state.username})
-    AsyncStorage.getItem('Visited', (err, result) => {
-      if (result !== null) {
-        const visitedData = `[${username},${result}]`;
-        // fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
-        fetch('http://localhost:5000/traveltracker/update', {
+    const { params } = this.props.navigation.state;
+    // console.log(params.connection);
+    if (params.connection === true) {
+      if (this.state.usernameInputText !== '') {
+        const username = JSON.stringify({username:this.state.usernameInputText})
+        // fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
+        fetch('http://localhost:5000/traveltracker/add/username', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
           },
-          body: visitedData,
+          body: username,
         })
           .then((res) => {
             this.setState({
-              shareResponse: res._bodyText
+              usernameResponse: res._bodyText
             });
             setTimeout( () => {
               this.setState({
-                shareResponse: ''
+                usernameResponse: ''
               })
             }, 2000);
+            if (res._bodyText === 'Username added') {
+              AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
+              });
+              this.setState({
+                usernameInputDisplay: false,
+                username: this.state.usernameInputText,
+              });
+            }
           })
-      } else {
-        this.setState({
-          shareResponse: 'You have nothing checked'
-        });
-        setTimeout( () => {
-          this.setState({
-            shareResponse: ''
-          })
-        }, 2000);
       }
-    });
+    } else {
+      this.setState({
+        usernameResponse: 'No internet connection',
+      });
+      setTimeout( () => {
+        this.setState({
+          usernameResponse: '',
+        })
+      }, 2000);
+    }
+  }
+
+  // SHARE LIST
+  onPressShare() {
+    const { params } = this.props.navigation.state;
+    // console.log(params.connection);
+    if (params.connection === true) {
+      const username = JSON.stringify({username:this.state.username})
+      AsyncStorage.getItem('Visited', (err, result) => {
+        if (result !== null) {
+          const visitedData = `[${username},${result}]`;
+          // fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
+          fetch('http://localhost:5000/traveltracker/update', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: visitedData,
+          })
+            .then((res) => {
+              this.setState({
+                shareResponse: res._bodyText
+              });
+              setTimeout( () => {
+                this.setState({
+                  shareResponse: ''
+                })
+              }, 2000);
+            })
+        } else {
+          this.setState({
+            shareResponse: 'You have nothing checked'
+          });
+          setTimeout( () => {
+            this.setState({
+              shareResponse: ''
+            })
+          }, 2000);
+        }
+      });
+    } else {
+      this.setState({
+        shareResponse: 'No internet connection',
+      });
+      setTimeout( () => {
+        this.setState({
+          shareResponse: '',
+        })
+      }, 2000);
+    }
   }
 
   // SEARCH INPUT CHANGE FUNCTION
@@ -135,7 +161,7 @@ export default class ShareScreen extends Component {
   // SUBMIT SEARCH
   onPressSubmitSearch() {
     const { params } = this.props.navigation.state;
-    console.log(params.connection);
+    // console.log(params.connection);
     if (params.connection === true) {
       if (this.state.searchInputText !== '') {
         this.setState({
@@ -160,6 +186,11 @@ export default class ShareScreen extends Component {
                 this.setState({
                   searchResultList: ['User has not shared their list'],
                 });
+                setTimeout( () => {
+                  this.setState({
+                    searchResultList: '',
+                  })
+                }, 2000);
               } else {
                 this.setState({
                   searchResultsHeader: false,
