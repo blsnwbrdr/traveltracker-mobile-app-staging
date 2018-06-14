@@ -44,6 +44,7 @@ export default class ShareScreen extends Component {
         });
       }
     });
+    fetch('https://brandonscode.herokuapp.com')
   }
 
   // USERNAME INPUT CHANGE FUNCTION
