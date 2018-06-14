@@ -60,8 +60,8 @@ export default class ShareScreen extends Component {
     if (params.connection === true) {
       if (this.state.usernameInputText !== '') {
         const username = JSON.stringify({username:this.state.usernameInputText})
-        // fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
-        fetch('http://localhost:5000/traveltracker/add/username', {
+        fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
+        // fetch('http://localhost:5000/traveltracker/add/username', {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -109,8 +109,8 @@ export default class ShareScreen extends Component {
       AsyncStorage.getItem('Visited', (err, result) => {
         if (result !== null) {
           const visitedData = `[${username},${result}]`;
-          // fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
-          fetch('http://localhost:5000/traveltracker/update', {
+          fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
+          // fetch('http://localhost:5000/traveltracker/update', {
             method: 'POST',
             headers: {
               'Accept': 'application/json',
@@ -170,8 +170,8 @@ export default class ShareScreen extends Component {
           searchResultList: '',
           searchResultListCount: '',
         });
-        // fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)
-        fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
+        fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)
+        // fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
           .then(res => res.json())
           .then(
             (result) => {
