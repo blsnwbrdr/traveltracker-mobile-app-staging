@@ -57,7 +57,6 @@ export default class ShareScreen extends Component {
   // SUBMIT USERNAME
   onPressSubmitUsername() {
     const { params } = this.props.navigation.state;
-    // console.log(params.connection);
     if (params.connection === true) {
       if (this.state.usernameInputText !== '') {
         const username = JSON.stringify({username:this.state.usernameInputText})
@@ -104,7 +103,6 @@ export default class ShareScreen extends Component {
   // SHARE LIST
   onPressShare() {
     const { params } = this.props.navigation.state;
-    // console.log(params.connection);
     if (params.connection === true) {
       const username = JSON.stringify({username:this.state.username})
       AsyncStorage.getItem('Visited', (err, result) => {
@@ -162,7 +160,6 @@ export default class ShareScreen extends Component {
   // SUBMIT SEARCH
   onPressSubmitSearch() {
     const { params } = this.props.navigation.state;
-    // console.log(params.connection);
     if (params.connection === true) {
       if (this.state.searchInputText !== '') {
         this.setState({
