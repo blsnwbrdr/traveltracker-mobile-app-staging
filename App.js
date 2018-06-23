@@ -3,13 +3,9 @@ import { AppLoading, Font } from 'expo';
 import MainNavigation from './navigation/MainNavigation';
 
 export default class App extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      isConnected: false,
-      isLoadingComplete: false,
-    }
-  }
+  state = {
+    isLoadingComplete: false,
+  };
 
   render() {
     if (!this.state.isLoadingComplete && !this.props.skipLoadingScreen) {
