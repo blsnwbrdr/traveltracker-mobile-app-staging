@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NetInfo, AsyncStorage, SafeAreaView, StatusBar, ScrollView, FlatList, View, Text } from 'react-native';
+import { NetInfo, AsyncStorage, SafeAreaView, StatusBar, ScrollView, FlatList, View, Text, TouchableOpacity } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { CheckBox } from 'react-native-elements';
 
@@ -93,6 +93,13 @@ export default class CountryListScreen extends Component {
         <StatusBar barStyle="light-content" />
         <ScrollView style={CountryListStyles.scrollContainer}>
           <Header />
+          <View style={CountryListStyles.headerButtonContainer}>
+            <TouchableOpacity>
+              <View style={CountryListStyles.headerButton}>
+                <Text style={CountryListStyles.headerButtonText}>Africa</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
           <FlatList
             data = {this.state.countryData}
             extraData = {this.state}
