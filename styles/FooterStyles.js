@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colorLightGrey } from './Constants';
+import { colorDarkGrey } from './Constants';
 
 const FooterStyles = StyleSheet.create({
   container: {
@@ -7,7 +7,7 @@ const FooterStyles = StyleSheet.create({
     paddingBottom: 25,
   },
   text: {
-    color: colorLightGrey,
+    color: colorDarkGrey,
     fontFamily: 'titillium-web',
     fontSize: 12,
     textAlign: 'center',
