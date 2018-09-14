@@ -11,18 +11,24 @@ const CountryListStyles = StyleSheet.create({
     backgroundColor: 'white',
   },
   picker: {
-    height: 100,
+    height: 60,
     backgroundColor: 'white',
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: colorMediumGrey,
-    marginBottom: 20,
   },
   pickerItem: {
-    height: 100,
+    height: 60,
     color: colorBlue,
     fontFamily: 'titillium-web',
     fontSize: 20,
+  },
+  pickerSubText: {
+    color: colorAqua,
+    textAlign: 'center',
+    fontFamily: 'titillium-web',
+    fontSize: 12,
+    marginBottom: 20,
   },
   listButton: {
     backgroundColor: 'white',

@@ -2,7 +2,7 @@
   "expo": {
     "name": "Travel Tracker - Staging",
     "description": "Where Next?",
-    "version": "1.2.1",
+    "version": "1.2.2",
     "slug": "traveltracker-mobile-staging",
     "privacy": "public",
     "sdkVersion": "30.0.0",
@@ -16,7 +16,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.brandonscode.traveltracker-staging",
-      "buildNumber": "1.2.1",
+      "buildNumber": "1.2.2",
       "infoPlist": {
         "NSLocationAlwaysUsageDescription": "requires location data",
       },

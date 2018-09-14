@@ -133,6 +133,7 @@ export default class CountryListScreen extends Component {
             <Picker.Item label="Oceania" value="Oceania" />
             <Picker.Item label="South America" value="South America" />
           </Picker>
+          <Text style={CountryListStyles.pickerSubText}>scroll to view by continent</Text>
           <FlatList
             data = {this.state.selectedData}
             extraData = {this.state}
