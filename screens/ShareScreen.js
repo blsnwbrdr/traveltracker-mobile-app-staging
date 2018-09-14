@@ -69,24 +69,27 @@ export default class ShareScreen extends Component {
           },
           body: username,
         })
-          .then((res) => {
-            this.setState({
-              usernameResponse: res._bodyText
-            });
-            setTimeout( () => {
+          .then(res => res.text())
+          .then(
+            (bodyText) => {
+              console.log(bodyText)
               this.setState({
-                usernameResponse: ''
-              })
-            }, 2000);
-            if (res._bodyText === 'Username added') {
-              AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
+                usernameResponse: bodyText
               });
-              this.setState({
-                usernameInputDisplay: false,
-                username: this.state.usernameInputText,
-              });
-            }
-          })
+              setTimeout( () => {
+                this.setState({
+                  usernameResponse: ''
+                })
+              }, 2000);
+              if (bodyText === 'Username added') {
+                AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
+                });
+                this.setState({
+                  usernameInputDisplay: false,
+                  username: this.state.usernameInputText,
+                });
+              }
+            })
       }
     } else {
       this.setState({
@@ -117,15 +120,17 @@ export default class ShareScreen extends Component {
             },
             body: visitedData,
           })
-            .then((res) => {
-              this.setState({
-                shareResponse: res._bodyText
-              });
-              setTimeout( () => {
+            .then(res => res.text())
+            .then(
+              (bodyText) => {
                 this.setState({
-                  shareResponse: ''
-                })
-              }, 2000);
+                  shareResponse: bodyText
+                });
+                setTimeout( () => {
+                  this.setState({
+                    shareResponse: ''
+                  })
+                }, 2000);
             })
         } else {
           this.setState({

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colorBlue, colorDarkGrey } from './Constants';
+import { colorBlue, colorDarkGrey, colorAqua, colorMediumGrey } from './Constants';
 
 const CountryListStyles = StyleSheet.create({
   container: {
@@ -12,6 +12,10 @@ const CountryListStyles = StyleSheet.create({
   },
   picker: {
     height: 100,
+    backgroundColor: 'white',
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: colorMediumGrey,
   },
   pickerItem: {
     height: 100,

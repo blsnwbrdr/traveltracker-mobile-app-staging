@@ -136,7 +136,7 @@ export default class CountryListScreen extends Component {
           <FlatList
             data = {this.state.selectedData}
             extraData = {this.state}
-            keyExtractor = {(x, i) => i}
+            keyExtractor = {(x, i) => i.toString()}
             renderItem = { ({item}) =>
               <CheckBox
                 containerStyle={CountryListStyles.listButton}

@@ -52,7 +52,7 @@ export default class MyList extends Component {
             <FlatList
               data = {this.state.checked}
               extraData = {this.state}
-              keyExtractor = {(x, i) => i}
+              keyExtractor = {(x, i) => i.toString()}
               renderItem = { ({item}) =>
                 <Text style={MyListStyles.country}>
                   {item}
