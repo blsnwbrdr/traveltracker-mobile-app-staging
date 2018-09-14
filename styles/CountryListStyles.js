@@ -16,6 +16,7 @@ const CountryListStyles = StyleSheet.create({
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: colorMediumGrey,
+    marginBottom: 20,
   },
   pickerItem: {
     height: 100,
