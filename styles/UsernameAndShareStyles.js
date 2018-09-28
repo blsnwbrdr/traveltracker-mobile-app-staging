@@ -16,16 +16,14 @@ const UsernameAndShareStyles = StyleSheet.create({
     zIndex: 999,
   },
   deleteButton: {
-    paddingTop: 5,
+    paddingTop: 10,
     paddingRight: 10,
-    paddingBottom: 5,
+    paddingBottom: 10,
     paddingLeft: 10,
     flexDirection: 'row',
   },
   deleteIcon: {
     color: colorAqua,
-    paddingTop: 5,
-    paddingLeft: 10,
   },
   shareButtonContainer: {
     alignItems: 'center',

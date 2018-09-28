@@ -60,7 +60,6 @@ export default class CountryListScreen extends Component {
     NetInfo.isConnected.fetch()
       .then( () => {
         NetInfo.isConnected.addEventListener('connectionChange', (isConnected) => {
-          console.log(isConnected)
           const passParam = NavigationActions.setParams({
             params: { connection: isConnected },
             key: 'Sharing',
