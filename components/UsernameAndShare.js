@@ -11,7 +11,7 @@ export default class UsernameAndShare extends Component {
     return (
       <View>
         <View style={UsernameAndShareStyles.deleteButtonContainer}>
-          <TouchableOpacity onPress={ () => this.props.onPressDeleteUsername() }>
+          <TouchableOpacity onPress={ () => this.props.onPressResetUsername() }>
             <View style={UsernameAndShareStyles.deleteButton}>
               <FontAwesome name="trash-o" size={16} style={UsernameAndShareStyles.deleteIcon} />
             </View>

@@ -14,7 +14,7 @@ export default class ShareScreen extends Component {
     super(props);
     this.usernameInputChange = this.usernameInputChange.bind(this);
     this.onPressSubmitUsername = this.onPressSubmitUsername.bind(this);
-    this.onPressDeleteUsername = this.onPressDeleteUsername.bind(this);
+    this.onPressResetUsername = this.onPressResetUsername.bind(this);
     this.onPressShare = this.onPressShare.bind(this);
     this.searchInputChange = this.searchInputChange.bind(this);
     this.onPressSubmitSearch = this.onPressSubmitSearch.bind(this);
@@ -155,8 +155,8 @@ export default class ShareScreen extends Component {
     }
   }
 
-  // DELETE USERNAME
-  onPressDeleteUsername() {
+  // RESET USERNAME
+  onPressResetUsername() {
     Alert.alert(
       'Reset Username',
       'Are you sure? This will render your current username unsable, as the server data will be unaffected.',
@@ -254,7 +254,7 @@ export default class ShareScreen extends Component {
                />
             ) : (
               <UsernameAndShare
-                onPressDeleteUsername={this.onPressDeleteUsername}
+                onPressResetUsername={this.onPressResetUsername}
                 username={this.state.username}
                 onPressShare={this.onPressShare}
                 shareResponse={this.state.shareResponse}
