@@ -18,11 +18,11 @@
       "bundleIdentifier": "com.brandonscode.traveltracker-staging",
       "buildNumber": "1.3.0",
       "infoPlist": {
-        "NSLocationAlwaysUsageDescription": "requires location data",
+        "NSLocationAlwaysUsageDescription": "requires location data"
       },
       "splash": {
         "backgroundColor": "#6BB7C1"
-      },
-    },
+      }
+    }
   }
 }
