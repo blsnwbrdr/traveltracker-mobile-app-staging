@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { NetInfo, AsyncStorage, SafeAreaView, StatusBar, ScrollView, FlatList, View, Text, Picker, Alert, TouchableOpacity } from 'react-native';
+import { AsyncStorage, SafeAreaView, StatusBar, ScrollView, FlatList, View, Text, Picker, Alert, TouchableOpacity } from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import { FontAwesome } from '@expo/vector-icons';
 import { NavigationActions } from 'react-navigation';
 import { CheckBox } from 'react-native-elements';
