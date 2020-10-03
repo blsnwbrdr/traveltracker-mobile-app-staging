@@ -46,6 +46,7 @@ export default class ShareScreen extends Component {
       }
     });
     fetch('https://brandonscode.herokuapp.com')
+    // fetch('http://localhost:5000')
   }
 
   // USERNAME INPUT CHANGE FUNCTION
