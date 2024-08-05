@@ -38,6 +38,9 @@ export default MyListScreen = ({ navigation }) => {
           list.sort();
           setChecked(list);
           setCount(visitedData.checked.length);
+        } else {
+          setChecked([]);
+          setCount(0);
         }
       });
     });
