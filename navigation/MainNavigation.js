@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { FontAwesome } from '@expo/vector-icons';
@@ -12,14 +11,6 @@ import ShareScreen from './../screens/ShareScreen';
 
 // STYLE CONSTANTS
 import { colorAqua, colorDarkGrey } from './../styles/Constants';
-
-function HomeScreen() {
-  return (
-    <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-      <Text>Home!</Text>
-    </View>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -55,7 +46,7 @@ export default MainNavigation = () => {
         <Tab.Screen name='Countries' component={CountryListScreen} />
         <Tab.Screen name='My Map' component={MyMapScreen} />
         <Tab.Screen name='My List' component={MyListScreen} />
-        <Tab.Screen name='Sharing' component={HomeScreen} />
+        <Tab.Screen name='Sharing' component={ShareScreen} />
       </Tab.Navigator>
     </NavigationContainer>
   );
