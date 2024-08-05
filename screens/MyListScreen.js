@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { SafeAreaView, StatusBar, FlatList, View, Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
 
 // COMPONENTS
 import Footer from './../components/Footer';
@@ -26,6 +25,7 @@ export default MyListScreen = ({ navigation }) => {
     _setCount(newCount);
   };
 
+  // GET STORED LIST OF CHECKED COUNTRIES
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
       AsyncStorage.getItem('Visited', (err, result) => {
