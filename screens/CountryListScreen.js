@@ -8,12 +8,12 @@ import {
   Alert,
   TouchableOpacity,
 } from 'react-native';
-import NetInfo from '@react-native-community/netinfo';
-import { FontAwesome } from '@expo/vector-icons';
-import { CommonActions } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { CheckBox } from '@rneui/themed';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
+import { CommonActions } from '@react-navigation/native';
+import { FontAwesome } from '@expo/vector-icons';
 
 // COMPONENTS
 import Header from './../components/Header';
