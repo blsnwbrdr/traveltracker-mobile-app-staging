@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { AsyncStorage, SafeAreaView, StatusBar, View, Alert } from 'react-native';
+import { SafeAreaView, StatusBar, View, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import NetInfo from '@react-native-community/netinfo';
 
 // COMPONENTS
 import UsernameInput from './../components/UsernameInput';
@@ -29,7 +31,7 @@ export default class ShareScreen extends Component {
       searchResultsUsername: '',
       searchResultList: [],
       searchResultListCount: '',
-    }
+    };
   }
 
   componentDidMount = () => {
@@ -45,115 +47,128 @@ export default class ShareScreen extends Component {
         });
       }
     });
-    fetch('https://brandonscode.herokuapp.com')
-    // fetch('http://localhost:5000')
-  }
+  };
+
+  // CHECK CONNECTION TO INTERNET
+  checkConnection = () => {
+    NetInfo.addEventListener((state) => {
+      return state.isConnected;
+    });
+  };
 
   // USERNAME INPUT CHANGE FUNCTION
   usernameInputChange(input) {
     this.setState({
-      usernameInputText: input
+      usernameInputText: input,
     });
   }
 
   // SUBMIT USERNAME
   onPressSubmitUsername() {
-    const { params } = this.props.navigation.state;
-    if (params.connection === true) {
-      if (this.state.usernameInputText !== '') {
-        const username = JSON.stringify({username:this.state.usernameInputText})
-        fetch('https://brandonscode.herokuapp.com/traveltracker/add/username', {
-        // fetch('http://localhost:5000/traveltracker/add/username', {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: username,
-        })
-          .then(res => res.text())
-          .then(
-            (bodyText) => {
+    NetInfo.fetch().then((state) => {
+      if (state.isConnected) {
+        if (this.state.usernameInputText !== '') {
+          const username = JSON.stringify({
+            username: this.state.usernameInputText,
+          });
+          fetch(
+            'https://brandonscode.herokuapp.com/traveltracker/add/username',
+            {
+              // fetch('http://localhost:5000/traveltracker/add/username', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: username,
+            }
+          )
+            .then((res) => res.text())
+            .then((bodyText) => {
               this.setState({
-                usernameResponse: bodyText
+                usernameResponse: bodyText,
               });
-              setTimeout( () => {
+              setTimeout(() => {
                 this.setState({
-                  usernameResponse: ''
-                })
+                  usernameResponse: '',
+                });
               }, 2000);
               if (bodyText === 'Username added') {
-                AsyncStorage.setItem('Username', this.state.usernameInputText, () => {
-                });
+                AsyncStorage.setItem(
+                  'Username',
+                  this.state.usernameInputText,
+                  () => {}
+                );
                 this.setState({
                   usernameInputDisplay: false,
                   username: this.state.usernameInputText,
                 });
               }
-            })
-      }
-    } else {
-      this.setState({
-        usernameResponse: 'No internet connection',
-      });
-      setTimeout( () => {
+            });
+        }
+      } else {
         this.setState({
-          usernameResponse: '',
-        })
-      }, 2000);
-    }
+          usernameResponse: 'No internet connection',
+        });
+        setTimeout(() => {
+          this.setState({
+            usernameResponse: '',
+          });
+        }, 2000);
+      }
+    });
   }
 
   // SHARE LIST
   onPressShare() {
-    const { params } = this.props.navigation.state;
-    if (params.connection === true) {
-      const username = JSON.stringify({username:this.state.username})
-      AsyncStorage.getItem('Visited', (err, result) => {
-        if (result !== null) {
-          const visitedData = `[${username},${result}]`;
-          fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
-          // fetch('http://localhost:5000/traveltracker/update', {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: visitedData,
-          })
-            .then(res => res.text())
-            .then(
-              (bodyText) => {
+    NetInfo.fetch().then((state) => {
+      if (state.isConnected) {
+        const username = JSON.stringify({ username: this.state.username });
+        AsyncStorage.getItem('Visited', (err, result) => {
+          if (result !== null) {
+            const visitedData = `[${username},${result}]`;
+            fetch('https://brandonscode.herokuapp.com/traveltracker/update', {
+              // fetch('http://localhost:5000/traveltracker/update', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: visitedData,
+            })
+              .then((res) => res.text())
+              .then((bodyText) => {
                 this.setState({
-                  shareResponse: bodyText
+                  shareResponse: bodyText,
                 });
-                setTimeout( () => {
+                setTimeout(() => {
                   this.setState({
-                    shareResponse: ''
-                  })
+                    shareResponse: '',
+                  });
                 }, 2000);
-            })
-        } else {
-          this.setState({
-            shareResponse: 'You have nothing checked'
-          });
-          setTimeout( () => {
+              });
+          } else {
             this.setState({
-              shareResponse: ''
-            })
-          }, 2000);
-        }
-      });
-    } else {
-      this.setState({
-        shareResponse: 'No internet connection',
-      });
-      setTimeout( () => {
+              shareResponse: 'You have nothing checked',
+            });
+            setTimeout(() => {
+              this.setState({
+                shareResponse: '',
+              });
+            }, 2000);
+          }
+        });
+      } else {
         this.setState({
-          shareResponse: '',
-        })
-      }, 2000);
-    }
+          shareResponse: 'No internet connection',
+        });
+        setTimeout(() => {
+          this.setState({
+            shareResponse: '',
+          });
+        }, 2000);
+      }
+    });
   }
 
   // RESET USERNAME
@@ -162,41 +177,44 @@ export default class ShareScreen extends Component {
       'Reset Username',
       'Are you sure? This will render your current username unsable, as the server data will be unaffected.',
       [
-        {text: 'Cancel'},
-        {text: 'Yes', onPress: () => {
+        { text: 'Cancel' },
+        {
+          text: 'Yes',
+          onPress: () => {
             AsyncStorage.removeItem('Username');
             this.setState({
               usernameInputDisplay: true,
-            })
-          }
+            });
+          },
         },
       ]
-    )
+    );
   }
 
   // SEARCH INPUT CHANGE FUNCTION
   searchInputChange(input) {
     this.setState({
-      searchInputText: input
+      searchInputText: input,
     });
   }
 
   // SUBMIT SEARCH
   onPressSubmitSearch() {
-    const { params } = this.props.navigation.state;
-    if (params.connection === true) {
-      if (this.state.searchInputText !== '') {
-        this.setState({
-          searchResultsHeader: false,
-          searchResultsUsername: '',
-          searchResultList: '',
-          searchResultListCount: '',
-        });
-        fetch(`https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`)
-        // fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
-          .then(res => res.json())
-          .then(
-            (result) => {
+    NetInfo.fetch().then((state) => {
+      if (state.isConnected) {
+        if (this.state.searchInputText !== '') {
+          this.setState({
+            searchResultsHeader: false,
+            searchResultsUsername: '',
+            searchResultList: '',
+            searchResultListCount: '',
+          });
+          fetch(
+            `https://brandonscode.herokuapp.com/traveltracker/search/username/${this.state.searchInputText}`
+          )
+            // fetch(`http://localhost:5000/traveltracker/search/username/${this.state.searchInputText}`)
+            .then((res) => res.json())
+            .then((result) => {
               if (result.length > 0 && result[0].checked !== undefined) {
                 this.setState({
                   searchResultsHeader: true,
@@ -208,60 +226,58 @@ export default class ShareScreen extends Component {
                 this.setState({
                   searchResultList: ['User has not shared their list'],
                 });
-                setTimeout( () => {
+                setTimeout(() => {
                   this.setState({
                     searchResultList: '',
-                  })
+                  });
                 }, 2000);
               } else {
                 this.setState({
                   searchResultsHeader: false,
                   searchResultList: ['Username does not exist'],
                 });
-                setTimeout( () => {
+                setTimeout(() => {
                   this.setState({
                     searchResultList: '',
-                  })
+                  });
                 }, 2000);
               }
-            }
-          )
-      }
-    } else {
-      this.setState({
-        searchResultsHeader: false,
-        searchResultList: ['No internet connection'],
-      });
-      setTimeout( () => {
+            });
+        }
+      } else {
         this.setState({
-          searchResultList: '',
-        })
-      }, 2000);
-    }
+          searchResultsHeader: false,
+          searchResultList: ['No internet connection'],
+        });
+        setTimeout(() => {
+          this.setState({
+            searchResultList: '',
+          });
+        }, 2000);
+      }
+    });
   }
 
   render() {
     const usernameInputDisplay = this.state.usernameInputDisplay;
-    return(
+    return (
       <SafeAreaView style={ShareStyles.safeViewContainer}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar barStyle='light-content' />
         <View style={ShareStyles.container}>
-          {
-            usernameInputDisplay ? (
-              <UsernameInput
-                usernameInputChange={this.usernameInputChange}
-                onPressSubmitUsername={this.onPressSubmitUsername}
-                usernameResponse={this.state.usernameResponse}
-               />
-            ) : (
-              <UsernameAndShare
-                onPressResetUsername={this.onPressResetUsername}
-                username={this.state.username}
-                onPressShare={this.onPressShare}
-                shareResponse={this.state.shareResponse}
-              />
-            )
-          }
+          {usernameInputDisplay ? (
+            <UsernameInput
+              usernameInputChange={this.usernameInputChange}
+              onPressSubmitUsername={this.onPressSubmitUsername}
+              usernameResponse={this.state.usernameResponse}
+            />
+          ) : (
+            <UsernameAndShare
+              onPressResetUsername={this.onPressResetUsername}
+              username={this.state.username}
+              onPressShare={this.onPressShare}
+              shareResponse={this.state.shareResponse}
+            />
+          )}
           <Search
             searchInputChange={this.searchInputChange}
             onPressSubmitSearch={this.onPressSubmitSearch}
