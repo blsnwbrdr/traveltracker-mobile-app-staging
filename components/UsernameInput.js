@@ -5,7 +5,6 @@ import { View, TextInput, Text } from 'react-native';
 import UsernameInputStyles from './../styles/UsernameInputStyles';
 
 export default class UsernameInput extends Component {
-
   render() {
     return (
       <View style={UsernameInputStyles.container}>
@@ -19,10 +18,14 @@ export default class UsernameInput extends Component {
           clearButtonMode='always'
           maxLength={12}
           returnKeyType='send'
-          onChangeText={(usernameInputText) => this.props.usernameInputChange(usernameInputText)}
+          onChangeText={(usernameInputText) =>
+            this.props.usernameInputChange(usernameInputText)
+          }
           onSubmitEditing={() => this.props.onPressSubmitUsername()}
         />
-        <Text style={UsernameInputStyles.response}>{this.props.usernameResponse}</Text>
+        <Text style={UsernameInputStyles.response}>
+          {this.props.usernameResponse}
+        </Text>
       </View>
     );
   }

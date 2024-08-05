@@ -5,7 +5,6 @@ import { TextInput, FlatList, View, Text } from 'react-native';
 import SearchStyles from './../styles/SearchStyles';
 
 export default class Search extends Component {
-
   render() {
     return (
       <View style={SearchStyles.container}>
@@ -18,30 +17,32 @@ export default class Search extends Component {
           clearButtonMode='always'
           maxLength={12}
           returnKeyType='go'
-          onChangeText={(searchInputText) => this.props.searchInputChange(searchInputText)}
+          onChangeText={(searchInputText) =>
+            this.props.searchInputChange(searchInputText)
+          }
           onSubmitEditing={() => this.props.onPressSubmitSearch()}
         />
-        {
-          this.props.searchResultsHeader ? (
-            <View style={SearchStyles.listHeaderContainer}>
-              <Text style={SearchStyles.listHeader}>{this.props.searchResultsUsername} has visited</Text>
-              <Text style={SearchStyles.listHeader}>{this.props.searchResultListCount} countries/territories.</Text>
-            </View>
-          ) : (
-            <Text></Text>
-          )
-        }
-        <FlatList
-          data = {this.props.searchResultList}
-          extraData = {this.state}
-          keyExtractor = {(x, i) => i.toString()}
-          renderItem = { ({item}) =>
-            <Text style={SearchStyles.list}>
-              {item}
+        {this.props.searchResultsHeader ? (
+          <View style={SearchStyles.listHeaderContainer}>
+            <Text style={SearchStyles.listHeader}>
+              {this.props.searchResultsUsername} has visited
             </Text>
-          }
+            <Text style={SearchStyles.listHeader}>
+              {this.props.searchResultListCount} countries/territories.
+            </Text>
+          </View>
+        ) : (
+          <Text></Text>
+        )}
+        <FlatList
+          data={this.props.searchResultList}
+          extraData={this.state}
+          keyExtractor={(x, i) => i.toString()}
+          renderItem={({ item }) => (
+            <Text style={SearchStyles.list}>{item}</Text>
+          )}
         />
       </View>
-    )
+    );
   }
 }
