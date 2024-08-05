@@ -31,25 +31,15 @@ function compare(a, b) {
 }
 countryData.sort(compare);
 
-export default CountryListScreen = ({ navigation }) => {
+export default CountryListScreen = () => {
   const [checked, _setChecked] = useState([]);
   const checkedRef = useRef(checked);
   const setChecked = (newChecked) => {
     checkedRef.current = newChecked;
     _setChecked(newChecked);
   };
-  const [selectedData, _setSelectedData] = useState(countryData);
-  const selectedDataRef = useRef(selectedData);
-  const setSelectedData = (newSelectedData) => {
-    selectedDataRef.current = newSelectedData;
-    _setSelectedData(newSelectedData);
-  };
-  const [selectedContinent, _setSelectedContinent] = useState('');
-  const selectedContinentRef = useRef(selectedContinent);
-  const setSelectedContinent = (newselectedContinent) => {
-    selectedContinentRef.current = newselectedContinent;
-    _setSelectedContinent(newselectedContinent);
-  };
+  const [selectedData, setSelectedData] = useState(countryData);
+  const [selectedContinent, setSelectedContinent] = useState('');
 
   // GET STORED LIST OF CHECKED COUNTRIES
   useEffect(() => {
@@ -121,7 +111,7 @@ export default CountryListScreen = ({ navigation }) => {
       <StatusBar barStyle='light-content' />
       <View style={CountryListStyles.container}>
         <FlatList
-          data={selectedDataRef.current}
+          data={selectedData}
           keyExtractor={(x, i) => i.toString()}
           removeClippedSubviews={true}
           maxToRenderPerBatch={10}
@@ -147,7 +137,7 @@ export default CountryListScreen = ({ navigation }) => {
             <View>
               <Header />
               <Picker
-                selectedValue={selectedContinentRef.current}
+                selectedValue={selectedContinent}
                 style={CountryListStyles.picker}
                 itemStyle={CountryListStyles.pickerItem}
                 onValueChange={(itemValue, itemIndex) =>
