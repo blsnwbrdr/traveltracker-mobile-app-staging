@@ -21,7 +21,7 @@ export default MyMapScreen = ({ navigation }) => {
       AsyncStorage.getItem('Visited', (err, result) => {
         const visitedData = JSON.parse(result);
         let list = [];
-        if (visitedData.checked !== null) {
+        if (visitedData && visitedData.checked !== null) {
           for (x = 0; x < visitedData.checked.length; x++) {
             for (i = 0; i < countryData.length; i++) {
               if (visitedData.checked[x] === countryData[i].name) {
