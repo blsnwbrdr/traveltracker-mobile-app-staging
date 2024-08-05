@@ -11,8 +11,6 @@ import {
 import { Picker } from '@react-native-picker/picker';
 import { CheckBox } from '@rneui/themed';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import NetInfo from '@react-native-community/netinfo';
-import { CommonActions } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 
 // COMPONENTS
@@ -53,9 +51,8 @@ export default CountryListScreen = ({ navigation }) => {
     _setSelectedContinent(newselectedContinent);
   };
 
-  // CHECK INTERNET CONNECTION AND GET STORED LIST OF CHECKED COUNTRIES
+  // GET STORED LIST OF CHECKED COUNTRIES
   useEffect(() => {
-    // this.checkConnection();
     // AsyncStorage.clear();
     AsyncStorage.getItem('Visited', (err, result) => {
       const visitedData = JSON.parse(result);
@@ -68,22 +65,6 @@ export default CountryListScreen = ({ navigation }) => {
       }
     });
   }, []);
-
-  // CHECK CONNECTION TO INTERNET
-  // checkConnection = () => {
-  //   NetInfo.isConnected.fetch().then(() => {
-  //     NetInfo.isConnected.addEventListener(
-  //       'connectionChange',
-  //       (isConnected) => {
-  //         const passParam = NavigationActions.setParams({
-  //           params: { connection: isConnected },
-  //           key: 'Sharing',
-  //         });
-  //         this.props.navigation.dispatch(passParam);
-  //       }
-  //     );
-  //   });
-  // };
 
   // DISPLAY LIST OF COUNTRIES BASED ON CONTINENT SELECTED
   displaySelectedData = (continent) => {
