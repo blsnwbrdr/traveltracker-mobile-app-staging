@@ -2,6 +2,7 @@ import React from 'react';
 import { TextInput, FlatList, View, Text } from 'react-native';
 
 // STYLES
+import { colorMediumGrey } from './../styles/Constants';
 import SearchStyles from './../styles/SearchStyles';
 
 export default Search = (props) => {
@@ -13,6 +14,7 @@ export default Search = (props) => {
         autoCorrect={false}
         autoCapitalize='none'
         placeholder='Search'
+        placeholderTextColor={colorMediumGrey}
         clearButtonMode='always'
         maxLength={12}
         returnKeyType='go'
